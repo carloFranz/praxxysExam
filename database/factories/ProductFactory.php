@@ -18,7 +18,7 @@ class ProductFactory extends Factory
     {
         return [
             'name' => $this->faker->name(),
-            'id_category' => rand(1,5),
+            'category_id' => rand(1,5),
             'description' => Str::random(10)
         ];
     }

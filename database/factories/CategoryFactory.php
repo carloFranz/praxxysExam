@@ -15,8 +15,9 @@ class CategoryFactory extends Factory
      */
     public function definition()
     {
+        $arrCategory = ["Food","Jewelry","Clothing","Eyewear","Gadget"];
         return [
-            'name' => $this->faker->name()
+            'name' => $this->faker->unique()->randomElement($arrCategory)
         ];
     }
 }

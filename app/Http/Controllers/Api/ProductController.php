@@ -11,7 +11,9 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::orderby('id', 'desc')->get();
-
+        foreach ($products as $product) {
+            $product['category_name'] = $product->category->name;
+        }
         return response()->json($products);
     }
 
@@ -29,7 +31,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::find($id);
-
+        $product['category_name'] = $product->category->name;
         return response()->json($product);
     }
 
