@@ -1,3 +1,4 @@
+import VueRouter from 'vue-router'
 import ProductIndex from './components/products/index.vue';
 import ProductCreate from './components/products/create.vue';
 import ProductEdit from './components/products/edit.vue';
@@ -18,3 +19,7 @@ export const routes = [
         name: "ProductEdit"
     }
 ];
+export default new VueRouter({
+    routes,
+    mode: 'history'
+})
