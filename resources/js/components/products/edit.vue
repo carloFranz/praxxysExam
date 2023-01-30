@@ -15,7 +15,11 @@
                     </div>
                     <div class="form-group">
                         <label>Category</label>
-                        <input type="text" class="form-control" v-model="product.category_name">
+                        <select class="form-control" v-model="product.category_id">
+                            <option v-for="category in categories" :value="category.id">
+                                {{category.name}}
+                            </option>
+                        </select>
                     </div>
                     <div class="form-group">
                         <label>Description</label>
@@ -31,8 +35,12 @@
     export default {
         data() {
             return {
-                product: {}
+                product: {},
+                categories: {}
             }
+        },
+        created() {
+            this.getCategories();
         },
         mounted() {
             this.editProduct(this.$route.params.productId);
@@ -51,6 +59,14 @@
                     .then((response) => {
                         this.$router.push({ name: 'ProductIndex' });
                     });
+            },
+            getCategories() {
+              this.axios.get('http://127.0.0.1:8000/api/categories').then(response => {
+                this.categories = response.data;
+                console.log(response.data);
+            }).catch(error=>{
+                console.log(error)
+            })
             }
         }
     }

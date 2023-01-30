@@ -3,6 +3,12 @@
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
             <div class="collapse navbar-collapse">
                 <div class="navbar-nav">
+                    <router-link :to="{ name: 'Login' }"  class="nav-item nav-link">Login</router-link>
+                </div>
+                <div class="navbar-nav">
+                    <router-link :to="{ name: 'Register' }"  class="nav-item nav-link">Register</router-link>
+                </div>
+                <div class="navbar-nav">
                     <router-link :to="{ name: 'ProductIndex' }"  class="nav-item nav-link">Products</router-link>
                 </div>
             </div>

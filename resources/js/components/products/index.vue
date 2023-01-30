@@ -8,6 +8,9 @@
         </div>
         <div class="row">
             <div class="col-md-12">
+                <input type="text" class="form-control" placeholder="Search for Name, Category or Description" v-model="search"/>
+            </div>
+            <div class="col-md-12">
                 <table class="table">
                     <thead>
                     <tr>
@@ -20,8 +23,8 @@
                     </tr>
                     </thead>
                     <tbody>
-                        <tr v-for="(product, key) of products">
-                            <td>{{ key+1 }}</td>
+                        <tr v-for="(product, index) in productList" :key="product.id">
+                            <td>{{ index+1 }}</td>
                             <td>{{ product.name }}</td>
                             <td>{{ product.category_name }}</td>
                             <td>{{ product.description }}</td>
@@ -42,7 +45,8 @@
     export default {
         data() {
             return {
-                products: {}
+                products: {},
+                search: ''
             }
         },
         created() {
@@ -64,6 +68,21 @@
                         let i = this.products.map(data => data.id).indexOf(productId);
                         this.products.splice(i, 1)
                     });
+            }
+        },
+        computed: {
+            productList(){
+               if(this.search.trim().length >0){
+                return this.products.filter((product) => 
+                    product.name.toLowerCase().includes(this.search.trim().toLowerCase()) ||
+                    product.description.toLowerCase().includes(this.search.trim().toLowerCase()) ||
+                    product.category_name.toLowerCase().includes(this.search.trim().toLowerCase()) 
+                )
+               }
+               
+               
+               return this.products;
+
             }
         }
     }
