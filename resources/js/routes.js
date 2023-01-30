@@ -4,6 +4,7 @@ import ProductCreate from './components/products/create.vue';
 import ProductEdit from './components/products/edit.vue';
 import Register from './components/register.vue';
 import Login from './components/login.vue';
+import Home from './components/home.vue';
 export const routes = [
     {
         path: '/products',
@@ -29,6 +30,16 @@ export const routes = [
         path: '/login',
         component: Login,
         name: "Login"
+    },
+    {
+        path: '/home',
+        component: Home,
+        name: "Home"
+    },
+    {
+        path: '/',
+        component: Home,
+        name: "Home"
     }
 ];
 export default new VueRouter({

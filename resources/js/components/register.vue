@@ -1,53 +1,104 @@
 <template>
-    <div class="flex flex-wrap w-full justify-center items-center pt-56">
-      <div class="flex flex-wrap max-w-xl">
-          <div class="p-2 text-2xl text-gray-800 font-semibold"><h1>Register an account</h1></div>
-          <div class="p-2 w-full">
-              <label class="w-full" for="name">Name</label>
-              <span class="w-full text-red-500" v-if="errors.name">{{errors.name[0]}}</span>
-              <input class="w-full bg-gray-100 rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" placeholder="Name" type="text" v-model="form.name" >
-          </div>
-          <div class="p-2 w-full">
-              <label for="username">Username</label>
-              <input class="w-full bg-gray-100 rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" placeholder="Username" type="text" v-model="form.username">
-          </div>
-          <div class="p-2 w-full">
-              <label for="password">Password</label>
-              <input class="w-full bg-gray-100 rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" placeholder="Password" type="password" v-model="form.password" name="password">
-          </div>
-          <div class="p-2 w-full">
-              <label for="confirm_password">Confirm Password</label>
-              <input class="w-full bg-gray-100 rounded border border-gray-400 focus:outline-none focus:border-indigo-500 text-base px-4 py-2" placeholder="Confirm Password" type="password" v-model="form.password_confirmation" name="password_confirmation">
-          </div>
-          <div class="p-2 w-full mt-4">
-              <button @click="saveForm" type="submit" class="btn btn-primary">Register</button>
-          </div>
-      </div> 
-  </div>
+    <div class="hold-transition login-page">
+        <div class="login-box">
+            <!-- /.login-logo -->
+            <div class="card card-outline card-primary">
+                <div class="card-header text-center">
+                    <a href="../../index2.html" class="h1"><b>Admin</b>LTE</a>
+                </div>
+                <div class="card-body">
+                    <p class="login-box-msg">Register</p>
+
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Fullname" v-model="form.name">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="text" class="form-control" placeholder="Username" v-model="form.username">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-user"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Password" v-model="form.password">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="input-group mb-3">
+                        <input type="password" class="form-control" placeholder="Confirm Password" v-model="form.password_confirmation">
+                        <div class="input-group-append">
+                            <div class="input-group-text">
+                                <span class="fas fa-lock"></span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        
+                        <div class="col-8">
+                            <div class="icheck-primary">
+                                <input type="checkbox" id="is_admin" v-model="form.is_admin">
+                                <label for="is_admin">
+                                    Administrator
+                                </label>
+                            </div>
+                        </div>
+                        <!-- /.col -->
+                        <div class="col-4">
+                            <button @click="saveForm" type="submit" class="btn btn-primary btn-block">Register</button>
+                        </div>
+                        <!-- /.col -->
+                    </div>
+                    <div class="social-auth-links text-center mt-2 mb-3"
+                        v-if="errors && errors.error && errors.error.length > 0">
+                        <button class="btn btn-block btn-danger">
+                            {{ errors.error[0] }}
+                        </button>
+                    </div>
+                </div>
+                <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+        </div>
+    </div>
 </template>
 <script>
 export default {
-  data(){
-      return{
-          form:{
-              name: '',
-              username: '',
-              password:'',
-              password_confirmation:'',
-              is_admin: 1
-          },
-          errors:[]
-      }
-  },
-  methods:{
-      saveForm(){
-          axios.post('/api/register', this.form).then(() =>{
-              console.log('saved');
-              this.$router.push({ name: "Login"}); 
-          }).catch((error) =>{
-              this.errors = error.response.data.errors;
-          })
-      }
-  }
+    data() {
+        return {
+            form: {
+                name: '',
+                username: '',
+                password: '',
+                password_confirmation: '',
+                is_admin: 0
+            },
+            errors: []
+        }
+    },
+    methods: {
+        saveForm() {
+            axios.post('/api/register', this.form).then(() => {
+                console.log('saved');
+                this.$router.push({ name: "Login" });
+            }).catch((error) => {
+                this.errors = error.response.data.errors;
+            })
+        }
+    },
+    mounted() {
+        let user = localStorage.getItem('user-info');
+        if (user) {
+            this.$router.push({ name: "Login" });
+        }
+    }
 }
 </script>

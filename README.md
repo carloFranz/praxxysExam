@@ -7,6 +7,20 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
+## Installation process
+1. This project is created using Laravel 8
+2. Create a database with the name "praxxys"
+3. Run these commands after:
+- composer install
+- php artisan key:generater
+- php artisan migrate
+- php artisan db:seed --class=CategorySeeder
+- php artisan db:seed --class=ProductSeeder
+- npm run watch
+- php artisan serve (open another terminal)
+- http://127.0.0.1:8000/
+
+
 ## About Laravel
 
 Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:

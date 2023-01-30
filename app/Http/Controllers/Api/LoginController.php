@@ -21,7 +21,7 @@ class LoginController extends Controller
             return response()->json(Auth::user(), 200);
         }
         throw ValidationException::withMessages([
-            'username' =>['The provided credentials are incorect.']
+            'error' =>['The provided credentials are incorect.']
         ]);
     }
     public function logout()
